@@ -3,11 +3,31 @@ $.getJSON("/articles", function(data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
       // Display the apropos information on the page
-      $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+      createNewOption(data[i])
+      // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
     }
   });
-  
-  
+
+  function createNewOption(data){
+    var newCardDeck = $("<div class='card-deck'>");
+    var newCardDiv = $("<div class='card text-center' style='width: 20rem;'>");
+    var nextNewDiv = $("<div class='card-body'>");
+    var cardTitle = $("<p data-id='" + data._id + "'>").text("ID: " + data._id);
+    var newResBody = $("<p class='card-text'>").text("Description: " + data.title);
+    var newMonthBody = $("<p class='card-text'>").text("Link: " + data.link);
+    var button = $('<button type="submit" class="btn btn-primary btn-lg submit" id="submit">Submit</button>')
+
+    $("#articles").append(newCardDeck);
+    newCardDeck.append(newCardDiv);
+    newCardDiv.append(nextNewDiv);
+    nextNewDiv.append(cardTitle);
+    nextNewDiv.append(newResBody);
+    nextNewDiv.append(newMonthBody);
+    nextNewDiv.append(button);
+
+    return newCardDiv;
+};
+
   // Whenever someone clicks a p tag
   $(document).on("click", "p", function() {
     // Empty the notes from the note section

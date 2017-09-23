@@ -1,5 +1,3 @@
-/* Showing Mongoose's "Populated" Method
- * =============================================== */
 
 // Dependencies
 var express = require("express");
@@ -8,7 +6,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var exphbs = require("express-handlebars");
 // Requiring our Note and Article models
-var Note = require("./models/Comments.js");
+var Note = require("./models/Note.js");
 var Article = require("./models/Article.js");
 // Our scraping tools
 var request = require("request");
@@ -53,18 +51,18 @@ db.once("open", function() {
 // A GET request to scrape the echojs website
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
-    request("http://www.echojs.com/", function(error, response, html) {
+    request("http://www.gamespot.com/", function(error, response, html) {
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(html);
       // Now, we grab every h2 within an article tag, and do the following:
-      $("article h2 a").each(function(i, element) {
+      $("div.media-body").each(function(i, element) {
   
         // Save an empty result object
         var result = {};
   
         // Add the text and href of every link, and save them as properties of the result object
-        result.title = $(element).text();
-        result.link = $(element).attr("href");
+        result.title = $(element).children(".media-title").text();
+        result.link = $(element).children(".media-deck").text();
   
         // Using our Article model, create a new entry
         // This effectively passes the result object to the entry (and the title and link)
