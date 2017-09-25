@@ -1,4 +1,9 @@
-body { background-color: #F2F6D0 }
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
 #wrapper {
   width: 960px;
   margin-left: auto;
@@ -27,4 +32,27 @@ input {
 textarea {
   height: 200px;
   font-size: 18px;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.scrape-new {
+  padding: 10px;
+  margin-top: 10px;
+  font-weight: 800;
+  color: white;
+}
+
+.scrape-new:hover {
+  background: #4caf50;
+}
+
+.scrape-new:active {
+  background: #e51c23;
+}
+
+.scrape-new {
+  cursor: pointer;
 }
