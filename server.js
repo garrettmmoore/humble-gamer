@@ -169,19 +169,7 @@ app.get("/scrape", function(req, res) {
     // Update Article to saved!
     app.put("/articles/next/saved/:id", function(req, res) {
 
-      req.body.saved = true;
-      
-      // Create a new note and pass the req.body to the entry
-      var newArticle = new Article(req.body);
-    
-      // And save the new note the db
-      newArticle.save(function(error, doc) {
-        // Log any errors
-        if (error) {
-          console.log(error);
-        }
-        // Otherwise
-        else {
+
           // Use the article id to find and update it's note
           Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
           // Execute the above query
@@ -195,8 +183,7 @@ app.get("/scrape", function(req, res) {
               res.send(doc);
             }
           });
-        }
-      });
+
     });
   
   

@@ -35,7 +35,7 @@ function handleArticleScrape() {
     // If we are able to succesfully scrape the NYTIMES and compare the articles to those
     // already in our collection, re render the articles on the page
     // and let the user know how many unique articles we were able to save
-    setTimeout(function(){ start(); }, 1000);
+    setTimeout(function(){ start(); }, 2200);
     // bootbox.alert("<h3 class='text-center m-top-80'>" + data.message + "<h3>");
   });
 }
@@ -142,6 +142,7 @@ function renderArticles(articles) {
       .done(function(data) {
         // Log the response
         console.log(data);
+        start();
         // Empty the notes section
         // $("#notes").empty();
       });
