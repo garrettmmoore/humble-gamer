@@ -13,9 +13,10 @@ $.getJSON("/articles", function(data) {
     var newCardDiv = $("<div class='card text-center' style='width: 20rem;'>");
     var nextNewDiv = $("<div class='card-body'>");
     var cardTitle = $("<p data-id='" + data._id + "'>").text("ID: " + data._id);
+    console.log(cardTitle);
     var newResBody = $("<p class='card-text'>").text("Description: " + data.title);
     var newMonthBody = $("<p class='card-text'>").text("Link: " + data.link);
-    var button = $('<button type="submit" class="btn btn-primary btn-lg submit" id="submit">Submit</button>')
+    var button = $("<button data-id='" + data._id + "' id='comment'>Comment</button>")
 
     $("#articles").append(newCardDeck);
     newCardDeck.append(newCardDiv);
@@ -29,7 +30,7 @@ $.getJSON("/articles", function(data) {
 };
 
   // Whenever someone clicks a p tag
-  $(document).on("click", "p", function() {
+  $(document).on("click", "#comment", function() {
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
