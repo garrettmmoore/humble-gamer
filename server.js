@@ -100,6 +100,21 @@ app.get("/scrape", function(req, res) {
       }
     });
   });
+
+  // This will get the articles we scraped from the mongoDB
+  app.get("/articles/saved/", function(req, res) {
+    // Grab every doc in the Articles array
+    Article.find({saved:true}, function(error, docs) {
+      // Log any errors
+      if (error) {
+        console.log(error);
+      }
+      // Or send the doc to the browser as a json object
+      else {
+        res.json(docs);
+      }
+    });
+  });
   
   // Grab an article by it's ObjectId
   app.get("/articles/:id", function(req, res) {
@@ -150,6 +165,39 @@ app.get("/scrape", function(req, res) {
       }
     });
   });
+
+    // Update Article to saved!
+    app.put("/articles/next/saved/:id", function(req, res) {
+
+      req.body.saved = true;
+      
+      // Create a new note and pass the req.body to the entry
+      var newArticle = new Article(req.body);
+    
+      // And save the new note the db
+      newArticle.save(function(error, doc) {
+        // Log any errors
+        if (error) {
+          console.log(error);
+        }
+        // Otherwise
+        else {
+          // Use the article id to find and update it's note
+          Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
+          // Execute the above query
+          .exec(function(err, doc) {
+            // Log any errors
+            if (err) {
+              console.log(err);
+            }
+            else {
+              // Or send the document to the browser
+              res.send(doc);
+            }
+          });
+        }
+      });
+    });
   
   
   // Listen on port 3000

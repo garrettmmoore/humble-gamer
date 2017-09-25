@@ -1,27 +1,33 @@
 $(document).ready(function() {
 var articleContainer = $("#articles");
 $(document).on("click", ".scrape-new", handleArticleScrape);
+$(document).on("click", "#comment", writeNote);
+$(document).on("click", "#savenote", saveNote);
+$(document).on("click", "#savearticle", saveArticle);
 
-  // Once the page is ready, run the initPage function to kick things off
-  start();
-  
-  
-    function start() {
-      
-      // Empty the article container, run an AJAX request for any unsaved headlines
-      articleContainer.empty();
-      $.getJSON("/articles").then(function(data) {
-        // If we have headlines, render them to the page
-        if (data && data.length) {
-          renderArticles(data);
 
-        }
-        else {
-          // Otherwise render a message explaing we have no articles
-          renderEmpty();
-        }
-      });
+// Once the page is ready, run the initPage function to kick things off
+start();
+
+
+function start() {
+    
+  // Empty the article container, run an AJAX request for any unsaved headlines
+  articleContainer.empty();
+  $.getJSON("/articles").then(function(data) {
+    // If we have headlines, render them to the page
+    if (data && data.length) {
+      renderArticles(data);
+
     }
+    else {
+      // Otherwise render a message explaing we have no articles
+      renderEmpty();
+    }
+  });
+}
+
+
 
 function handleArticleScrape() {
   // This function handles the user clicking any "scrape new article" buttons
@@ -47,15 +53,17 @@ function renderArticles(articles) {
 }
 
 
+
   function createNewOption(data){
     var newCardDeck = $("<div class='card-deck'>");
     var newCardDiv = $("<div class='card text-center' style='width: 20rem;'>");
     var nextNewDiv = $("<div class='card-body'>");
-    var cardTitle = $("<p data-id='" + data._id + "'>").text("ID: " + data._id);
+    var cardTitle = $("<p data-id='" + data._id + "'>").text("ID: " + data._id + "   " + data.saved);
     console.log(cardTitle);
     var newResBody = $("<p class='card-text'>").text("Description: " + data.title);
     var newMonthBody = $("<p class='card-text'>").text("Link: " + data.link);
     var button = $("<button data-id='" + data._id + "' id='comment'>Comment</button>")
+    var buttonArticle = $("<button data-id='" + data._id + "' id='savearticle'>Save Article</button>")
 
     $("#articles").append(newCardDeck);
     newCardDeck.append(newCardDiv);
@@ -64,12 +72,13 @@ function renderArticles(articles) {
     nextNewDiv.append(newResBody);
     nextNewDiv.append(newMonthBody);
     nextNewDiv.append(button);
+    nextNewDiv.append(buttonArticle);
 
     return newCardDiv;
 };
 
   // Whenever someone clicks a comment button
-  $(document).on("click", "#comment", function() {
+  function writeNote() {
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
@@ -100,10 +109,46 @@ function renderArticles(articles) {
           $("#bodyinput").val(data.note.body);
         }
       });
-  });
+  }
+
+    // // Whenever someone clicks a comment button
+    // function getSavedArticles() {
+    //   // Empty the notes from the note section
+    //   articleContainer.empty();
+
+    
+    //   // Now make an ajax call for the Article
+    //   $.ajax({
+    //     method: "GET",
+    //     url: "/articles/saved/"
+    //   })
+    //     // With that done, add the note information to the page
+    //     .done(function(data) {
+    //       savedStart()
+    //       console.log(data);
+    //     });
+    // }
+
+  function saveArticle() {
+    // Grab the id associated with the article from the submit button
+    var thisId = $(this).attr("data-id");
+  
+    // Run a POST request to change the note, using what's entered in the inputs
+    $.ajax({
+      method: "PUT",
+      url: "/articles/next/saved/" + thisId,
+    })
+      // With that done
+      .done(function(data) {
+        // Log the response
+        console.log(data);
+        // Empty the notes section
+        // $("#notes").empty();
+      });
+  };
   
   // When you click the savenote button
-  $(document).on("click", "#savenote", function() {
+function saveNote() {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
   
@@ -129,7 +174,7 @@ function renderArticles(articles) {
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
-  });
+  };
 
   function renderEmpty() {
     // This function renders some HTML to the page explaining we don't have any articles to view
@@ -153,4 +198,6 @@ function renderArticles(articles) {
     // Appending this data to the page
     articleContainer.append(emptyAlert);
   }
+
+  
 });
