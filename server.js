@@ -40,14 +40,25 @@ app.use(express.static("public"));
 var db = process.env.MONGODB_URI || "mongodb://localhost/gamenews";
 
 // Show any mongoose errors
-db.on("error", function(error) {
-  console.log("Mongoose Error: ", error);
-});
 
-// Once logged in to the db through mongoose, log a success message
-db.once("open", function() {
-  console.log("Mongoose connection successful.");
-});
+mongoose.connect(db, function(error) {
+  
+    if (error) {
+      console.log(error);
+    }
+  
+    else {
+      console.log("mongoose connection is successful");
+    }
+  });
+// db.on("error", function(error) {
+//   console.log("Mongoose Error: ", error);
+// });
+
+// // Once logged in to the db through mongoose, log a success message
+// db.once("open", function() {
+//   console.log("Mongoose connection successful.");
+// });
 
 
 // Routes
