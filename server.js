@@ -67,7 +67,7 @@ mongoose.connect(db, function(error) {
 // A GET request to scrape the gamespot website
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
-    request("http://www.gamespot.com/", function(error, response, html) {
+    request("https://www.gamespot.com/", function(error, response, html) {
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(html);
       // Now, we grab every h2 within an article tag, and do the following:
