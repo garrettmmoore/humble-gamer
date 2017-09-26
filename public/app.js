@@ -10,6 +10,7 @@ $(document).on("click", "#savearticle", saveArticle);
 start();
 
 function start() {
+  console.log("We startin");
     
   // Empty the article container, run an AJAX request for articles
   articleContainer.empty();
@@ -29,10 +30,12 @@ function start() {
 function handleArticleScrape() {
   // This function handles the user clicking any "scrape new article" buttons
   $.get("/scrape").then(function(data) {
+    console.log("We scraping");
     // If we are able to succesfully scrape  and compare the articles to those
     // already in our collection, re render the articles on the page
     // and let the user know how many unique articles we were able to save
     setTimeout(function(){ start(); }, 4000);
+    console.log("Time out over");
     // bootbox.alert("<h3 class='text-center m-top-80'>" + data.message + "<h3>");
   });
 }
