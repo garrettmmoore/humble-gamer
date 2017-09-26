@@ -14,7 +14,7 @@ var cheerio = require("cheerio");
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
-var MONGODB_URI = 'mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z';
+// var MONGODB_URI = 'mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z';
 
 var PORT = process.env.PORT || 3000;
 
@@ -34,31 +34,31 @@ app.use(express.static("public"));
 // app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
-// mongoose.connect('mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z', { useMongoClient: true });
-// var db = mongoose.connection;
+mongoose.connect('mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z', { useMongoClient: true });
+var db = mongoose.connection;
 
-var db = process.env.MONGODB_URI || "mongodb://localhost/gamenews";
+// var db = process.env.MONGODB_URI || "mongodb://localhost/gamenews";
 
 // Show any mongoose errors
 
-mongoose.connect(db, function(error) {
+// mongoose.connect(db, function(error) {
   
-    if (error) {
-      console.log(error);
-    }
+//     if (error) {
+//       console.log(error);
+//     }
   
-    else {
-      console.log("mongoose connection is successful");
-    }
-  });
-// db.on("error", function(error) {
-//   console.log("Mongoose Error: ", error);
-// });
+//     else {
+//       console.log("mongoose connection is successful");
+//     }
+//   });
+db.on("error", function(error) {
+  console.log("Mongoose Error: ", error);
+});
 
-// // Once logged in to the db through mongoose, log a success message
-// db.once("open", function() {
-//   console.log("Mongoose connection successful.");
-// });
+// Once logged in to the db through mongoose, log a success message
+db.once("open", function() {
+  console.log("Mongoose connection successful.");
+});
 
 
 // Routes

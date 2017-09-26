@@ -114,24 +114,6 @@ function renderArticles(articles) {
       });
   }
 
-    // // Whenever someone clicks a comment button
-    // function getSavedArticles() {
-    //   // Empty the notes from the note section
-    //   articleContainer.empty();
-
-    
-    //   // Now make an ajax call for the Article
-    //   $.ajax({
-    //     method: "GET",
-    //     url: "/articles/saved/"
-    //   })
-    //     // With that done, add the note information to the page
-    //     .done(function(data) {
-    //       savedStart()
-    //       console.log(data);
-    //     });
-    // }
-
   function saveArticle() {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
