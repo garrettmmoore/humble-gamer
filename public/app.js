@@ -43,7 +43,7 @@ function handleArticleScrape() {
 
 // Grab the articles as a json
 function renderArticles(articles) {
-  console.log("Render articles works")
+  console.log("Render articles works");
   $.getJSON("/articles", function(data) {
     console.log("THis is render data " + data);
       // For each one
