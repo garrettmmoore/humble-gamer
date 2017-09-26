@@ -14,6 +14,9 @@ var cheerio = require("cheerio");
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
+var MONGO_URI = 'mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z';
+
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -27,12 +30,14 @@ app.use(bodyParser.urlencoded({
 // Make public a static dir
 app.use(express.static("public"));
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+// app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+// app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
-mongoose.connect('mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z', { useMongoClient: true });
-var db = mongoose.connection;
+// mongoose.connect('mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z', { useMongoClient: true });
+// var db = mongoose.connection;
+
+var db = process.env.MONGODB_URI || "mongodb://localhost/mongoScraper";
 
 // Show any mongoose errors
 db.on("error", function(error) {
