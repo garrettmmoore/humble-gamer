@@ -14,7 +14,7 @@ var cheerio = require("cheerio");
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
-var MONGO_URI = 'mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z';
+var MONGODB_URI = 'mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z';
 
 var PORT = process.env.PORT || 3000;
 
