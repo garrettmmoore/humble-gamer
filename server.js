@@ -64,7 +64,7 @@ mongoose.connect(db, function(error) {
 // Routes
 // ======
 
-// A GET request to scrape the echojs website
+// A GET request to scrape the gamespot website
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
     request("http://www.gamespot.com/", function(error, response, html) {

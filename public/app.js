@@ -9,7 +9,7 @@ $(document).on("click", "#savearticle", saveArticle);
 // Once the page is ready, run the start function to get things running
 start();
 
-function start(data) {
+function start() {
   console.log("We startin");
     
   // Empty the article container, run an AJAX request for articles
@@ -28,14 +28,14 @@ function start(data) {
   });
 }
 
-function handleArticleScrape(data) {
+function handleArticleScrape() {
   // This function handles the user clicking any "scrape new article" buttons
   $.get("/scrape").then(function(data) {
-    console.log("We scraping");
+    console.log("We scraping" + data);
     // If we are able to succesfully scrape  and compare the articles to those
     // already in our collection, re render the articles on the page
     // and let the user know how many unique articles we were able to save
-    setTimeout(function(data){ start(data); }, 8000);
+    setTimeout(function(){ start(); }, 8000);
     console.log("Time out over");
     // bootbox.alert("<h3 class='text-center m-top-80'>" + data.message + "<h3>");
   });
@@ -43,7 +43,7 @@ function handleArticleScrape(data) {
 
 // Grab the articles as a json
 function renderArticles(articles) {
-  console.log("Render articles works");
+  console.log("Render articles works")
   $.getJSON("/articles", function(data) {
     console.log("THis is render data " + data);
       // For each one
