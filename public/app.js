@@ -32,7 +32,7 @@ function handleArticleScrape() {
     // If we are able to succesfully scrape  and compare the articles to those
     // already in our collection, re render the articles on the page
     // and let the user know how many unique articles we were able to save
-    setTimeout(function(){ start(); }, 2200);
+    setTimeout(function(){ start(); }, 3000);
     // bootbox.alert("<h3 class='text-center m-top-80'>" + data.message + "<h3>");
   });
 }
