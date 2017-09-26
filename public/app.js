@@ -15,6 +15,7 @@ function start() {
   // Empty the article container, run an AJAX request for articles
   articleContainer.empty();
   $.getJSON("/articles").then(function(data) {
+    console.log("THis is start data " + data);
     // If we have articles, render them to the page
     if (data && data.length) {
       renderArticles(data);
@@ -43,6 +44,7 @@ function handleArticleScrape() {
 // Grab the articles as a json
 function renderArticles(articles) {
   $.getJSON("/articles", function(data) {
+    console.log("THis is render data " + data);
       // For each one
       for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
