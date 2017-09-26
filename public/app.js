@@ -6,16 +6,15 @@ $(document).on("click", "#savenote", saveNote);
 $(document).on("click", "#savearticle", saveArticle);
 
 
-// Once the page is ready, run the initPage function to kick things off
+// Once the page is ready, run the start function to get things running
 start();
-
 
 function start() {
     
-  // Empty the article container, run an AJAX request for any unsaved headlines
+  // Empty the article container, run an AJAX request for articles
   articleContainer.empty();
   $.getJSON("/articles").then(function(data) {
-    // If we have headlines, render them to the page
+    // If we have articles, render them to the page
     if (data && data.length) {
       renderArticles(data);
 
@@ -27,12 +26,10 @@ function start() {
   });
 }
 
-
-
 function handleArticleScrape() {
   // This function handles the user clicking any "scrape new article" buttons
   $.get("/scrape").then(function(data) {
-    // If we are able to succesfully scrape the NYTIMES and compare the articles to those
+    // If we are able to succesfully scrape  and compare the articles to those
     // already in our collection, re render the articles on the page
     // and let the user know how many unique articles we were able to save
     setTimeout(function(){ start(); }, 2200);
