@@ -35,7 +35,7 @@ function handleArticleScrape() {
     // If we are able to succesfully scrape  and compare the articles to those
     // already in our collection, re render the articles on the page
     // and let the user know how many unique articles we were able to save
-    setTimeout(function(){ start(); }, 8000);
+    setTimeout(function(){ start(); }, 2000);
     console.log("Time out over");
     // bootbox.alert("<h3 class='text-center m-top-80'>" + data.message + "<h3>");
   });
@@ -47,7 +47,7 @@ function renderArticles(articles) {
   $.getJSON("/articles", function(data) {
     console.log("THis is render data " + data);
       // For each one
-      for (var i = 0; i < data.length; i++) {
+      for (var i = 4; i < data.length; i++) {
         // Display the apropos information on the page
         createNewOption(data[i])
         // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
@@ -60,20 +60,24 @@ function renderArticles(articles) {
   function createNewOption(data){
     var newCardDeck = $("<div class='card-deck'>");
     var newCardDiv = $("<div class='card text-center' style='width: 20rem;'>");
+    // var newCardImg = $("<img class='card-img-top' src='" + data.imgLink +  "' alt='Card image cap'>");
     var nextNewDiv = $("<div class='card-body'>");
-    var cardTitle = $("<p data-id='" + data._id + "'>").text("ID: " + data._id + "   " + data.saved);
+    var cardTitle = $("<p data-id='" + data._id + "'>").text("Saved: " + data.saved);
     console.log(cardTitle);
-    var newResBody = $("<p class='card-text'>").text("Description: " + data.title);
-    var newMonthBody = $("<p class='card-text'>").text("Link: " + data.link);
+    var newResBody = $("<p class='card-text'>").text("Title: " + data.title);
+    // var newMonthBody = $("<p class='card-text'>").text("Description: " + data.description);
+    var newLinkBody = $("<p class='card-text'>").text("Link: " + "https://www.gamespot.com" + data.link);
     var button = $("<button data-id='" + data._id + "' id='comment'>Comment</button>")
     var buttonArticle = $("<button data-id='" + data._id + "' id='savearticle'>Save Article</button>")
 
     $("#articles").append(newCardDeck);
     newCardDeck.append(newCardDiv);
     newCardDiv.append(nextNewDiv);
+    // newCardDiv.append(newCardImg);
     nextNewDiv.append(cardTitle);
     nextNewDiv.append(newResBody);
-    nextNewDiv.append(newMonthBody);
+    // nextNewDiv.append(newMonthBody);
+    nextNewDiv.append(newLinkBody);
     nextNewDiv.append(button);
     nextNewDiv.append(buttonArticle);
 
