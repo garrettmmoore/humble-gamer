@@ -52,6 +52,7 @@ db.once("open", function() {
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
     request("https://www.gamespot.com/", function(error, response, html) {
+      console.log("request route being hit")
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(html);
       // Now, we grab every h2 within an article tag, and do the following:
