@@ -4,7 +4,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-var exphbs = require("express-handlebars");
+// var exphbs = require("express-handlebars");
 // Requiring our Note and Article models
 var Note = require("./models/Note.js");
 var Article = require("./models/Article.js");
@@ -13,8 +13,6 @@ var request = require("request");
 var cheerio = require("cheerio");
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
-
-// var MONGODB_URI = 'mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z';
 
 var PORT = process.env.PORT || 3000;
 
@@ -30,27 +28,10 @@ app.use(bodyParser.urlencoded({
 // Make public a static dir
 app.use(express.static("public"));
 
-// app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-// app.set("view engine", "handlebars");
-
 // Database configuration with mongoose
 mongoose.connect('mongodb://heroku_kx1ml25z:ph1baftd1asn9e6h2i5nr52ub9@ds149324.mlab.com:49324/heroku_kx1ml25z', { useMongoClient: true });
 var db = mongoose.connection;
 
-// var db = process.env.MONGODB_URI || "mongodb://localhost/gamenews";
-
-// Show any mongoose errors
-
-// mongoose.connect(db, function(error) {
-  
-//     if (error) {
-//       console.log(error);
-//     }
-  
-//     else {
-//       console.log("mongoose connection is successful");
-//     }
-//   });
 db.on("error", function(error) {
   console.log("Mongoose Error: ", error);
 });
@@ -63,7 +44,10 @@ db.once("open", function() {
 
 // Routes
 // ======
-
+// get post
+// get "/"
+//   res.render(index.html)
+// app.post(/scrape)
 // A GET request to scrape the gamespot website
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
@@ -185,7 +169,6 @@ app.get("/scrape", function(req, res) {
     // Update Article to saved!
     app.put("/articles/next/saved/:id", function(req, res) {
 
-
           // Use the article id to find and update it's note
           Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
           // Execute the above query
@@ -201,7 +184,6 @@ app.get("/scrape", function(req, res) {
           });
 
     });
-  
   
   // Listen on port 3000
   app.listen(PORT, function() {
