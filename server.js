@@ -45,9 +45,6 @@ db.once("open", function() {
 // Routes
 // ======
 // get post
-// get "/"
-//   res.render(index.html)
-// app.post(/scrape)
 // A GET request to scrape the gamespot website
 
 app.get("/", function(req, res) {
@@ -63,6 +60,7 @@ app.get("/scrape", function(req, res) {
       var $ = cheerio.load(html);
       // Now, we grab every h2 within an article tag, and do the following:
       $("article.media-article").each(function(i, element) {
+        console.log("article is being scraped")
   
         // Save an empty result object
         var result = {};
