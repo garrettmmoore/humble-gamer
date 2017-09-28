@@ -66,8 +66,9 @@ app.get("/scrape", function(req, res) {
         var result = {};
   
         // Add the text and href of every link, and save them as properties of the result object
-        result.title = $(element).children().attr("data-event-title");
+        result.title = $(element).children(".c-entry-box--compact__body").children(".c-entry-box--compact__title").text().replace(/\n/g, '');
         result.link = $(element).children().attr("href");
+        result.imgLink = $(element).children().children().children().children().attr("src");
       
         // $("div.media-body").each(function(i, element) {      
         //   result.description = $(element).children(".media-deck").text();

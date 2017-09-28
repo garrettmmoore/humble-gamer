@@ -60,7 +60,7 @@ function renderArticles(articles) {
   function createNewOption(data){
     var newCardDeck = $("<div class='card-deck'>");
     var newCardDiv = $("<div class='card text-center' style='width: 20rem;'>");
-    // var newCardImg = $("<img class='card-img-top' src='" + data.imgLink +  "' alt='Card image cap'>");
+    var newCardImg = $("<img class='card-img-top' src='" + data.imgLink +  "' alt='Card image cap'>");
     var nextNewDiv = $("<div class='card-body'>");
     var cardTitle = $("<p data-id='" + data._id + "'>").text("Saved: " + data.saved);
     console.log(cardTitle);
@@ -73,7 +73,7 @@ function renderArticles(articles) {
     $("#articles").append(newCardDeck);
     newCardDeck.append(newCardDiv);
     newCardDiv.append(nextNewDiv);
-    // newCardDiv.append(newCardImg);
+    newCardDiv.append(newCardImg);
     nextNewDiv.append(cardTitle);
     nextNewDiv.append(newResBody);
     // nextNewDiv.append(newMonthBody);

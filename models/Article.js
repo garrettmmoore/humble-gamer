@@ -19,10 +19,10 @@ var ArticleSchema = new Schema({
     type: String,
     // required: true
   },
-  // imgLink: {
-  //   type: String,
-  //   // required: true
-  // },
+  imgLink: {
+    type: String,
+    // required: true
+  },
   saved: Boolean,
   // This only saves one note's ObjectId, ref refers to the Note model
   note: {
