@@ -3,6 +3,20 @@ html {
   min-height: 100%;
 }
 
+body{
+  font-family: 'Lora', serif;
+}
+
+.heading{
+  font-family: 'Acme', sans-serif;
+  text-align: center;
+}
+.mainJumbo{
+  text-align: center;
+}
+
+
+
 
 #wrapper {
   width: 960px;
@@ -23,7 +37,7 @@ html {
 textarea, input {
   display: block;
   width: 100%;
-  background-color: #FCF5C7;
+  
 }
 input {
   height: 36px;
@@ -55,4 +69,23 @@ textarea {
 
 .scrape-new {
   cursor: pointer;
+}
+
+.card-text-title{
+  font-family: 'Acme', sans-serif;
+  text-align: center;
+  font-size: 30px;
+}
+
+#savearticle{
+  margin: 20px;
+}
+
+#delete{
+  margin: 20px;
+}
+
+#notes{
+  font-family: 'Acme', sans-serif;
+  text-align: center;
 }

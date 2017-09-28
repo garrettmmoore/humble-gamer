@@ -42,21 +42,21 @@ $(document).ready(function() {
         var newCardDeck = $("<div class='card-deck'>");
         var newCardDiv = $("<div class='card text-center' style='width: 20rem;'>");
         var nextNewDiv = $("<div class='card-body'>");
-        var cardTitle = $("<p data-id='" + data._id + "'>").text("ID: " + data._id + "   " + data.saved);
-        console.log(cardTitle);
-        var newResBody = $("<p class='card-text'>").text("Description: " + data.title);
-        var newMonthBody = $("<p class='card-text'>").text("Link: " + data.link);
-        var button = $("<button data-id='" + data._id + "' id='comment'>Comment</button>")
-        var buttonArticle = $("<button data-id='" + data._id + "' id='delete'>Delete</button>")
+        // var cardTitle = $("<p data-id='" + data._id + "'>").text("ID: " + data._id + "   " + data.saved);
+        // console.log(cardTitle);
+        var newResBody = $("<p class='card-text-title'>").text("Title: " + data.title);
+        var newLinkBody = $("<p><a href='" + data.link +  "'> " + data.link + " </a></p>");
+        var button = $("<button data-id='" + data._id + "' id='comment' type='button' class='btn btn-info'>Comment</button>")
+        var buttonDelete = $("<button data-id='" + data._id + "' id='delete'type='button' class='btn btn-danger'>Delete</button>")
     
         $("#articles").append(newCardDeck);
         newCardDeck.append(newCardDiv);
         newCardDiv.append(nextNewDiv);
-        nextNewDiv.append(cardTitle);
+        // nextNewDiv.append(cardTitle);
         nextNewDiv.append(newResBody);
-        nextNewDiv.append(newMonthBody);
+        nextNewDiv.append(newLinkBody);
         nextNewDiv.append(button);
-        nextNewDiv.append(buttonArticle);
+        nextNewDiv.append(buttonDelete);
     
         return newCardDiv;
     };

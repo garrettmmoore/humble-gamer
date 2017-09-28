@@ -47,7 +47,7 @@ function renderArticles(articles) {
   $.getJSON("/articles", function(data) {
     console.log("THis is render data " + data);
       // For each one
-      for (var i = 4; i < data.length; i++) {
+      for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
         createNewOption(data[i])
         // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
@@ -60,21 +60,24 @@ function renderArticles(articles) {
   function createNewOption(data){
     var newCardDeck = $("<div class='card-deck'>");
     var newCardDiv = $("<div class='card text-center' style='width: 20rem;'>");
-    var newCardImg = $("<img class='card-img-top' src='" + data.imgLink +  "' alt='Card image cap'>");
+    // var newCardImg = $("<img class='card-img-top' src='" + data.description +  "' alt='Card image cap'>");
     var nextNewDiv = $("<div class='card-body'>");
-    var cardTitle = $("<p data-id='" + data._id + "'>").text("Saved: " + data.saved);
-    console.log(cardTitle);
-    var newResBody = $("<p class='card-text'>").text("Title: " + data.title);
+    // var cardTitle = $("<p data-id='" + data._id + "'>").text("Saved Status: " + data.saved);
+    // console.log(cardTitle);
+    var newResBody = $("<p class='card-text-title'>").text("Title: " + data.title);
     // var newMonthBody = $("<p class='card-text'>").text("Description: " + data.description);
-    var newLinkBody = $("<p class='card-text'>").text("Link: " + "https://www.gamespot.com" + data.link);
-    var button = $("<button data-id='" + data._id + "' id='comment'>Comment</button>")
-    var buttonArticle = $("<button data-id='" + data._id + "' id='savearticle'>Save Article</button>")
+    var newLinkBody = $("<p><a href='" + data.link +  "'> " + data.link + " </a></p>");
+    // $(document).ready(function() {
+    //   $( ".class" ).append( "<p><a src='" + data.link +  "'>Google</a></p>" );
+    // });
+    var button = $("<button data-id='" + data._id + "' id='comment' type='button' class='btn btn-info'>Comment</button>")
+    var buttonArticle = $("<button data-id='" + data._id + "' id='savearticle' type='button' class='btn btn-primary'>Save Article</button>")
 
-    $("#articles").append(newCardDeck);
+    articleContainer.append(newCardDeck);
     newCardDeck.append(newCardDiv);
     newCardDiv.append(nextNewDiv);
-    newCardDiv.append(newCardImg);
-    nextNewDiv.append(cardTitle);
+    // newCardDiv.append(newCardImg);
+    // nextNewDiv.append(cardTitle);
     nextNewDiv.append(newResBody);
     // nextNewDiv.append(newMonthBody);
     nextNewDiv.append(newLinkBody);
@@ -104,9 +107,9 @@ function renderArticles(articles) {
         // An input to enter a new title
         $("#notes").append("<input id='titleinput' name='title' >");
         // A textarea to add a new note body
-        $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+        $("#notes").append("<textarea class='form-control' id='bodyinput' name='body' rows='3'></textarea>");
         // A button to submit a new note, with the id of the article saved to it
-        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        $("#notes").append("<button data-id='" + data._id + "' id='savenote' type='button' class='btn btn-primary'>Save Note</button>");
   
         // If there's a note in the article
         if (data.note) {
