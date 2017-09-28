@@ -54,12 +54,12 @@ app.get("/", function(req, res) {
 
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
-    request("http://www.gamespot.com/", function(error, response, html) {
+    request("https://www.polygon.com/", function(error, response, html) {
       console.log("request route being hit")
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(html);
       // Now, we grab every h2 within an article tag, and do the following:
-      $("article.media-article").each(function(i, element) {
+      $("div.c-entry-box--compact--article").each(function(i, element) {
         console.log("article is being scraped")
   
         // Save an empty result object
