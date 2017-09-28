@@ -49,6 +49,12 @@ db.once("open", function() {
 //   res.render(index.html)
 // app.post(/scrape)
 // A GET request to scrape the gamespot website
+
+app.get("/", function(req, res) {
+  res.send(index.html);
+});
+
+
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
     request("https://www.gamespot.com/", function(error, response, html) {
