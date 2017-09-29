@@ -2,6 +2,7 @@ $(document).ready(function() {
     var articleContainer = $("#articles");
     $(document).on("click", "#comment", writeNote);
     $(document).on("click", "#savenote", saveNote);
+    $(document).on("click", "#delete", handleArticleDelete);
     
     // $(document).on("click", ".savedData", getSavedArticles);
     
@@ -146,6 +147,25 @@ $(document).ready(function() {
         // Appending this data to the page
         articleContainer.append(emptyAlert);
       }
+
+      function handleArticleDelete() {
+        // Grab the id associated with the article from the submit button
+        var thisId = $(this).attr("data-id");
+      
+        // Run a POST request to change the note, using what's entered in the inputs
+        $.ajax({
+          method: "DELETE",
+          url: "/articles/delete/" + thisId,
+        })
+          // With that done
+          .done(function(data) {
+            // Log the response
+            console.log(data);
+            savedStart();
+            // Empty the notes section
+            // $("#notes").empty();
+          });
+      };
     
       
     });

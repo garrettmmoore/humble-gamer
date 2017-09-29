@@ -92,6 +92,28 @@ module.exports = function(router) {
     });
   });
 
+    // This route handles deleting a specified headline
+    router.delete("/articles/delete/:id", function(req, res) {
+        // Set the _id property of the query object to the id in req.params
+        var query = { _id: req.params.id };
+    
+        // Run the headlinesController delete method and pass in our query object containing
+        // the id of the headline we want to delete
+        Article.remove(query)
+
+        .exec(function(err, doc) {
+            // Log any errors
+            if (err) {
+              console.log(err);
+            }
+            else {
+              // Or send the document to the browser
+              res.send(doc);
+            }
+          });
+
+      });
+
     // Grab an article by it's ObjectId
   router.get("/articles/:id", function(req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
