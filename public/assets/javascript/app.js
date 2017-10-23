@@ -1,63 +1,61 @@
-$(document).ready(function() {
-var articleContainer = $("#articles");
-$(document).on("click", ".scrape-new", handleArticleScrape);
-$(document).on("click", "#comment", writeNote);
-$(document).on("click", "#savenote", saveNote);
-$(document).on("click", "#savearticle", saveArticle);
+$(document).ready(function () {
+  var articleContainer = $("#articles");
+  $(document).on("click", ".scrape-new", handleArticleScrape);
+  $(document).on("click", "#comment", writeNote);
+  $(document).on("click", "#savenote", saveNote);
+  $(document).on("click", "#savearticle", saveArticle);
 
+  // Once the page is ready, run the start function to get things running
+  start();
 
-// Once the page is ready, run the start function to get things running
-start();
+  function start() {
+    console.log("We startin");
 
-function start() {
-  console.log("We startin");
-    
-  // Empty the article container, run an AJAX request for articles
-  articleContainer.empty();
-  $.getJSON("/articles").then(function(data) {
-    console.log("THis is start data " + data);
-    // If we have articles, render them to the page
-    if (data && data.length) {
-      renderArticles(data);
+    // Empty the article container, run an AJAX request for articles
+    articleContainer.empty();
+    $.getJSON("/articles").then(function (data) {
+      console.log("THis is start data " + data);
+      // If we have articles, render them to the page
+      if (data && data.length) {
+        renderArticles(data);
 
-    }
-    else {
-      // Otherwise render a message explaing we have no articles
-      renderEmpty();
-    }
-  });
-}
+      } else {
+        // Otherwise render a message explaing we have no articles
+        renderEmpty();
+      }
+    });
+  }
 
-function handleArticleScrape() {
-  // This function handles the user clicking any "scrape new article" buttons
-  $.get("/scrape").then(function(data) {
-    console.log("We scraping" + data);
-    // If we are able to succesfully scrape  and compare the articles to those
-    // already in our collection, re render the articles on the page
-    // and let the user know how many unique articles we were able to save
-    setTimeout(function(){ start(); }, 3000);
-    console.log("Time out over");
-    // bootbox.alert("<h3 class='text-center m-top-80'>" + data.message + "<h3>");
-  });
-}
+  function handleArticleScrape() {
+    // This function handles the user clicking any "scrape new article" buttons
+    $.get("/scrape").then(function (data) {
+      console.log("We scraping" + data);
+      // If we are able to succesfully scrape  and compare the articles to those
+      // already in our collection, re render the articles on the page
+      // and let the user know how many unique articles we were able to save
+      setTimeout(function () {
+        start();
+      }, 3000);
+      console.log("Time out over");
+      // bootbox.alert("<h3 class='text-center m-top-80'>" + data.message + "<h3>");
+    });
+  }
 
-// Grab the articles as a json
-function renderArticles(articles) {
-  console.log("Render articles works")
-  $.getJSON("/articles", function(data) {
-    console.log("THis is render data " + data);
+  // Grab the articles as a json
+  function renderArticles(articles) {
+    console.log("Render articles works")
+    $.getJSON("/articles", function (data) {
+      console.log("This is render data " + data);
       // For each one
       for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
         createNewOption(data[i])
         // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
       }
-  });
-}
+    });
+  }
 
-
-
-  function createNewOption(data){
+  function createNewOption(data) {
     var newCardDeck = $("<div class='card-deck'>");
     var newCardDiv = $("<div class='card text-center' style='width: 20rem;'>");
     // var newCardImg = $("<img class='card-img-top' src='" + data.description +  "' alt='Card image cap'>");
@@ -66,7 +64,7 @@ function renderArticles(articles) {
     // console.log(cardTitle);
     var newResBody = $("<p class='card-text-title'>").text("Title: " + data.title);
     // var newMonthBody = $("<p class='card-text'>").text("Description: " + data.description);
-    var newLinkBody = $("<p><a href='" + data.link +  "'> " + data.link + " </a></p>");
+    var newLinkBody = $("<p><a href='" + data.link + "'> " + data.link + " </a></p>");
     // $(document).ready(function() {
     //   $( ".class" ).append( "<p><a src='" + data.link +  "'>Google</a></p>" );
     // });
@@ -85,7 +83,7 @@ function renderArticles(articles) {
     nextNewDiv.append(buttonArticle);
 
     return newCardDiv;
-};
+  };
 
   // Whenever someone clicks a comment button
   function writeNote() {
@@ -93,14 +91,14 @@ function renderArticles(articles) {
     $("#notes").empty();
     // Save the id from the p tag
     var thisId = $(this).attr("data-id");
-  
+
     // Now make an ajax call for the Article
     $.ajax({
-      method: "GET",
-      url: "/articles/" + thisId
-    })
+        method: "GET",
+        url: "/articles/" + thisId
+      })
       // With that done, add the note information to the page
-      .done(function(data) {
+      .done(function (data) {
         console.log(data);
         // The title of the article
         $("#notes").append("<h2>" + data.title + "</h2>");
@@ -110,7 +108,7 @@ function renderArticles(articles) {
         $("#notes").append("<textarea class='form-control' id='bodyinput' name='body' rows='3'></textarea>");
         // A button to submit a new note, with the id of the article saved to it
         $("#notes").append("<button data-id='" + data._id + "' id='savenote' type='button' class='btn btn-primary'>Save Note</button>");
-  
+
         // If there's a note in the article
         if (data.note) {
           // Place the title of the note in the title input
@@ -124,14 +122,14 @@ function renderArticles(articles) {
   function saveArticle() {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
-  
+
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
-      method: "PUT",
-      url: "/articles/next/saved/" + thisId,
-    })
+        method: "PUT",
+        url: "/articles/next/saved/" + thisId,
+      })
       // With that done
-      .done(function(data) {
+      .done(function (data) {
         // Log the response
         console.log(data);
         start();
@@ -139,31 +137,31 @@ function renderArticles(articles) {
         // $("#notes").empty();
       });
   };
-  
+
   // When you click the savenote button
-function saveNote() {
+  function saveNote() {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
-  
+
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
-      method: "POST",
-      url: "/articles/" + thisId,
-      data: {
-        // Value taken from title input
-        title: $("#titleinput").val(),
-        // Value taken from note textarea
-        body: $("#bodyinput").val()
-      }
-    })
+        method: "POST",
+        url: "/articles/" + thisId,
+        data: {
+          // Value taken from title input
+          title: $("#titleinput").val(),
+          // Value taken from note textarea
+          body: $("#bodyinput").val()
+        }
+      })
       // With that done
-      .done(function(data) {
+      .done(function (data) {
         // Log the response
         console.log(data);
         // Empty the notes section
         $("#notes").empty();
       });
-  
+
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
@@ -191,6 +189,4 @@ function saveNote() {
     // Appending this data to the page
     articleContainer.append(emptyAlert);
   }
-
-  
 });
